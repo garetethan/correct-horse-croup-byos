@@ -1,3 +1,8 @@
+# License
+The Wiktionary data file ([wiktionary-en.json](wiktionary-en.json)) contains data from [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Main_Page), the free dictionary. This data is dual-licensed under the [GNU Free Documentation License v1.1](https://en.wiktionary.org/wiki/Wiktionary:Text_of_the_GNU_Free_Documentation_License) and the [Creative Commons Attribution-Share-Alike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/). See [Wikimedia Downloads's license information](https://dumps.wikimedia.org/legal.html) and [Wiktionary:Copyrights](https://en.wiktionary.org/wiki/Wiktionary:Copyrights) for details.
+
+All other files in this repository (including this license file) are licensed under Creative Commons Zero v1.0 Universal, as explained below.
+
 Creative Commons Legal Code
 
 CC0 1.0 Universal

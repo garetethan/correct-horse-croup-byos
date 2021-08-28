@@ -1,7 +1,7 @@
 import argparse
 import json
 import random
-
+import re
 
 def main ():
 	parser = argparse.ArgumentParser()
@@ -42,8 +42,7 @@ def main ():
 	goodWords = []
 	for i, word in enumerate(words):
 		words[i]['categories'] = set(word.get('categories', []))
-		# Initialisms are often not tagged as such, so assume uppercase words are abbreviations.
-		if len(words[i]['word']) <= args.char_max and (' ' not in words[i]['word'] or args.phrases) and words[i]['categories'].isdisjoint(categoryExclusions) and (not words[i]['word'].isupper() or args.abbreviations):
+		if isDecentWord(words[i], args, categoryExclusions):
 			for j, sense in enumerate(words[i]['senses']):
 				words[i]['senses'][j]['categories'] = set(sense.get('categories', []))
 				words[i]['senses'][j]['tags'] = set(sense.get('tags', []))
@@ -86,6 +85,19 @@ def loadWords (dataPath):
 	with open(dataPath, 'r') as dataFile:
 		words = [json.loads(line) for line in dataFile.readlines()]
 	return words
+
+def isDecentWord (word, args, categoryExclusions):
+	if len(word['word']) > args.char_max:
+		return False
+	elif not args.phrases and ' ' in word['word']:
+		return False
+	elif not word['categories'].isdisjoint(categoryExclusions):
+		return False
+	# Initialisms are often not tagged as such, so assume all-caps words (with an optional 's' at the end making them plural) are abbreviations.
+	elif not args.abbreviations and re.match(r'[A-Z][A-Z0-9&]+s?', word['word']):
+		return False
+	else:
+		return True
 
 def printSenseCatsAndTags (sense):
 	if sense['categories']:

@@ -20,7 +20,7 @@ def main ():
 		('s', 'nonstandard', 'nonstandard forms', frozenset(), frozenset({'nonstandard'})),
 		('d', 'old', 'archaic and obsolete words', frozenset(), frozenset({'archaic', 'obsolete'})),
 		('p', 'phrases', 'phrases which consist of multiple words', frozenset({'English multiword terms'}), frozenset()),
-		('f', 'profanity', 'offensive words, vulgar words, and slurs', frozenset({'English swear words'}), frozenset({'offensive', 'slur', 'vulgar'})),
+		('f', 'profanity', 'derogatory words, offensive words, slurs, and vulgar words', frozenset({'English swear words'}), frozenset({'derogatory', 'offensive', 'slur', 'vulgar'})),
 		('r', 'surnames', 'surnames', frozenset({'English surnames'}), frozenset()),
 	]
 	for exclusion in exclusions:

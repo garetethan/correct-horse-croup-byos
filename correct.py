@@ -1,6 +1,6 @@
 import argparse
 import json
-import random
+import secrets
 import re
 
 def main ():
@@ -53,7 +53,7 @@ def main ():
 	print(f'Selecting {args.word_count} words randomly from a pool of {len(goodWords)} words.')
 	for i in range(args.option_count):
 		print(f'=== OPTION {i} ===\n')
-		chosenWords = [random.choice(goodWords) for _ in range(args.word_count)]
+		chosenWords = [secrets.choice(goodWords) for _ in range(args.word_count)]
 		print(' '.join([word['word'] for word in chosenWords]))
 
 		for j, word in enumerate(chosenWords):

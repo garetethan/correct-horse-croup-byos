@@ -9,7 +9,6 @@ def main ():
 	parser.add_argument('-w', '--word-count', default=4, type=int, help='The number of words to have in each password.')
 	parser.add_argument('-c', '--char-max', default=8, type=int, help='The maximum number of characters a word may have.')
 	parser.add_argument('-o', '--option-count', default=1, type=int, help='The number of passwords to generate.')
-	parser.add_argument('-p', '--phrases', action='store_true', help='Include phrases which consist of multiple words (which are excluded by default).')
 	parser.add_argument('-a', '--exclude-cats', nargs='+', default=[], help='Exclude words in the specified categories.')
 	parser.add_argument('-t', '--exclude-tags', nargs='+', default=[], help='Exclude words with the specified tags.')
 	inclusions = {
@@ -20,6 +19,7 @@ def main ():
 		('n', 'names', 'names of people, places, etc.', frozenset({'English diminutives of female given names', 'English diminutives of male given names', 'English diminutives of unisex given names'}), frozenset({'name'})),
 		('s', 'nonstandard', 'nonstandard forms', frozenset(), frozenset({'nonstandard'})),
 		('d', 'old', 'archaic and obsolete words', frozenset(), frozenset({'archaic', 'obsolete'})),
+		('p', 'phrases', 'phrases which consist of multiple words', frozenset({'English multiword terms'}), frozenset()),
 		('f', 'profanity', 'offensive words, vulgar words, and slurs', frozenset({'English swear words'}), frozenset({'offensive', 'slur', 'vulgar'})),
 		('r', 'surnames', 'surnames', frozenset({'English surnames'}), frozenset()),
 	}
@@ -89,7 +89,7 @@ def loadWords (dataPath):
 def isDecentWord (word, args, categoryExclusions):
 	if len(word['word']) > args.char_max:
 		return False
-	elif not args.phrases and ' ' in word['word']:
+	elif not args.phrases and ' ' in word['word'] or '-' in word['word']:
 		return False
 	elif not word['categories'].isdisjoint(categoryExclusions):
 		return False

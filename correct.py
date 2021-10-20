@@ -11,7 +11,7 @@ def main ():
 	parser.add_argument('-o', '--option-count', default=1, type=int, help='The number of passwords to generate.')
 	parser.add_argument('-a', '--exclude-cats', nargs='+', default=[], help='Exclude words in the specified categories.')
 	parser.add_argument('-t', '--exclude-tags', nargs='+', default=[], help='Exclude words with the specified tags.')
-	inclusions = {
+	exclusions = [
 		('b', 'abbreviations', 'abbreviations', frozenset(), frozenset({'abbreviation'})),
 		('l', 'alternative', 'alternative forms', frozenset(), frozenset({'alternative'})),
 		('g', 'given-names', 'given names', frozenset({'English given names'}), frozenset()),
@@ -22,18 +22,18 @@ def main ():
 		('p', 'phrases', 'phrases which consist of multiple words', frozenset({'English multiword terms'}), frozenset()),
 		('f', 'profanity', 'offensive words, vulgar words, and slurs', frozenset({'English swear words'}), frozenset({'offensive', 'slur', 'vulgar'})),
 		('r', 'surnames', 'surnames', frozenset({'English surnames'}), frozenset()),
-	}
-	for inclusion in inclusions:
-		parser.add_argument(f'-{inclusion[0]}', f'--{inclusion[1]}', action='store_true', help=f'Include {inclusion[2]} (which are excluded by default).')
+	]
+	for exclusion in exclusions:
+		parser.add_argument(f'-{exclusion[0]}', f'--{exclusion[1]}', action='store_true', help=f'Include {exclusion[2]} (which are excluded by default).')
 	args = parser.parse_args()
 	categoryExclusions = set(args.exclude_cats)
 	tagExclusions = set(args.exclude_tags)
 	tagExclusions.add('misspelling')
 	options = vars(args)
-	for inclusion in inclusions:
-		if not options[inclusion[1].replace('-', '_')]:
-			categoryExclusions |= inclusion[3]
-			tagExclusions |= inclusion[4]
+	for exclusion in exclusions:
+		if not options[exclusion[1].replace('-', '_')]:
+			categoryExclusions |= exclusion[3]
+			tagExclusions |= exclusion[4]
 
 	words = loadWords(args.data_path)
 	print(f'Loaded {len(words)} words.')

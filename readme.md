@@ -1,5 +1,8 @@
 # Correct Horse Croup Byos
 
+## xkcdpass
+Since I'm just a random computer science student messing around, if you actually want to generate secure, xkcd-style passwords using Python, I suggest [xkcdpass](https://github.com/redacted/XKCD-password-generator) rather than this project.
+
 ## Setup
 
 1. Clone this repo.
